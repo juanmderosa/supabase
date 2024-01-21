@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { supabase } from "../helpers/supabaseClient";
 import { useAuth } from "../context/UserContext";
-/* import { useEffect, useState } from "react";
- */ import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Nav = () => {
   const { userId, setUserId } = useAuth();

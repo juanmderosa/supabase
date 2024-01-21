@@ -1,23 +1,12 @@
 import { Link } from "react-router-dom";
 import { supabase } from "../helpers/supabaseClient";
 import { useAuth } from "../context/UserContext";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+/* import { useEffect, useState } from "react";
+ */ import { useNavigate } from "react-router-dom";
 
 export const Nav = () => {
-  const [isLogged, setIsLogged] = useState(false);
-  const { setUserId } = useAuth();
+  const { userId, setUserId } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    supabase.auth.onAuthStateChange((session) => {
-      if (session === "SIGNED_OUT") {
-        setIsLogged(false);
-      } else {
-        setIsLogged(true);
-      }
-    });
-  }, []);
 
   const handleLogOut = async () => {
     await supabase.auth.signOut();
@@ -37,14 +26,14 @@ export const Nav = () => {
           className="hover:underline">
           Inicio
         </Link>
-        {isLogged && (
+        {userId !== "" && (
           <Link
             to={"/mis-propiedades"}
             className="hover:underline">
             Mis Propiedades
           </Link>
         )}
-        {isLogged ? (
+        {userId !== "" ? (
           <button
             onClick={() => handleLogOut()}
             className="hover:underline">
